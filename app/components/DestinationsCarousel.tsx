@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, ReactNode } from 'react';
-import { FaChevronLeft, FaChevronRight, FaMapMarkerAlt, FaPlane, FaHotel, FaHeartbeat, FaUtensils, FaSun } from 'react-icons/fa';
+import Image from 'next/image';
+import { FaChevronLeft, FaChevronRight, FaMapMarkerAlt, FaHeartbeat, FaSun } from 'react-icons/fa';
 
 type Destination = {
   id: number;
@@ -107,7 +108,7 @@ export default function DestinationsCarousel() {
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-2">Explore Our Top Destinations</h2>
         <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-          Discover Spain's premier medical tourism destinations, combining world-class healthcare with unforgettable experiences.
+          Discover Spain&apos;s premier medical tourism destinations, combining world-class healthcare with unforgettable experiences.
         </p>
         
         <div className="relative">
@@ -127,22 +128,25 @@ export default function DestinationsCarousel() {
               >
                 <div className="relative h-48 overflow-hidden">
                   <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
-                    <img 
-                      src={destination.image} 
-                      alt={destination.name} 
-                      className="w-full h-full object-cover absolute inset-0"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                        const parent = target.parentElement;
-                        if (parent) {
-                          const fallback = document.createElement('div');
-                          fallback.className = 'w-full h-full flex items-center justify-center bg-blue-600 text-white';
-                          fallback.textContent = destination.name;
-                          parent.appendChild(fallback);
-                        }
-                      }}
-                    />
+                    <div className="relative w-full h-full">
+                      <Image 
+                        src={destination.image} 
+                        alt={destination.name}
+                        fill
+                        className="object-cover"
+                        onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                          const target = e.currentTarget;
+                          target.style.display = 'none';
+                          const parent = target.parentElement;
+                          if (parent) {
+                            const fallback = document.createElement('div');
+                            fallback.className = 'w-full h-full flex items-center justify-center bg-blue-600 text-white';
+                            fallback.textContent = destination.name;
+                            parent.appendChild(fallback);
+                          }
+                        }}
+                      />
+                    </div>
                     <div className="text-gray-500 text-center p-4">
                       <p>Loading {destination.name}...</p>
                       <p className="text-sm">(Image placeholder)</p>

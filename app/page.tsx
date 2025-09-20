@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import React from 'react';
 import { FaClinicMedical, FaPlane, FaLanguage, FaStar } from 'react-icons/fa';
 import ScrollHeader from './components/ScrollHeader';
 import TreatmentsGrid from './components/TreatmentCarousel';
@@ -155,11 +156,10 @@ export default function Home() {
               World-Class Healthcare in Spain
             </span>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-              Experience Exceptional <span className="text-blue-300">Medical Care</span> in Spain's Finest Cities
+              Experience Exceptional <span className="text-blue-300">Medical Care</span> in Spain&#39;s Finest Cities
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl">
-              Combine world-class medical treatments with a relaxing recovery in Spain's most beautiful destinations. 
-              Save up to 70% compared to US and UK prices without compromising on quality.
+              Combine your treatment with recovery in Spain&#39;s most beautiful destinations, from Barcelona&#39;s beaches to Madrid&#39;s cultural attractions. US and UK prices without compromising on quality.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <button className="bg-white text-blue-700 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition-all text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
@@ -194,7 +194,7 @@ export default function Home() {
                 <FaStar className="text-yellow-400 text-2xl" />
               </div>
               <h3 className="text-xl font-semibold mb-2">World-Class Facilities</h3>
-              <p className="text-gray-600">State-of-the-art hospitals and clinics with internationally accredited medical professionals.</p>
+              <p className="text-gray-600">Spain&#39;s medical facilities are among the best in the world, with JCI-accredited hospitals and internationally trained doctors.</p>
             </div>
             
             {/* Card 2 */}
@@ -241,7 +241,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-xl">
             <div className="mb-8 text-center">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Tell Us About Your Medical Needs</h3>
-              <p className="text-gray-600">Complete this form and we'll prepare a personalized treatment plan for you</p>
+              <p className="text-gray-600">Complete this form and we&#39;ll prepare a personalized treatment plan for you</p>
             </div>
             <MedicalNeedsForm />
           </div>
@@ -275,7 +275,7 @@ export default function Home() {
                 <FaClinicMedical className="text-2xl text-blue-500" />
                 <span className="text-white font-bold text-xl">MediSpain</span>
               </div>
-              <p className="text-sm">Your trusted partner for medical tourism in Spain, providing world-class healthcare with a personal touch.</p>
+              <p className="text-sm">Our patients save an average of 60-70% on medical procedures compared to US prices, while enjoying Spain&#39;s world-class healthcare system.</p>
             </div>
             
             <div>
