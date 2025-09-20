@@ -7,7 +7,7 @@ const nextConfig = {
       'plus.unsplash.com',
       'source.unsplash.com',
     ],
-    unoptimized: true, // Disable image optimization if not needed
+    unoptimized: true,
   },
   reactStrictMode: true,
   swcMinify: true,
@@ -15,17 +15,17 @@ const nextConfig = {
     styledComponents: true,
   },
   eslint: {
+    // Disable ESLint during builds since we're handling it separately
     ignoreDuringBuilds: true,
+  },
+  typescript: {
+    // Allow production builds even with TypeScript errors
+    ignoreBuildErrors: true,
   },
   // Enable static export for Vercel
   outputFileTracing: true,
-  typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: true,
-  },
+  // Disable React's StrictMode for now to prevent double rendering in development
+  reactStrictMode: false,
 }
 
 module.exports = nextConfig
