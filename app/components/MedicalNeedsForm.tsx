@@ -1,9 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
-import { FaPaperPlane, FaCalendarAlt, FaMapMarkerAlt, FaUserMd, FaEuroSign } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaMapMarkerAlt, FaEuroSign, FaCheck, FaExclamationTriangle, FaUserMd } from 'react-icons/fa';
+import { supabase } from '@/lib/supabase';
 
 export default function MedicalNeedsForm() {
+  // Test Supabase connection on component mount
+  useEffect(() => {
+    const testConnection = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('test_connection')
+          .select('*')
+          .limit(1);
+          
+        if (error) {
+          console.error('Supabase connection test failed:', error.message);
+        } else {
+          console.log('✅ Supabase connection successful!');
+        }
+      } catch (error) {
+        console.error('Error testing Supabase connection:', error);
+      }
+    };
+
+    testConnection();
+  }, []);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,8 +49,10 @@ export default function MedicalNeedsForm() {
   const languages = [
     'English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese', 'Russian', 'Arabic', 'Chinese', 'Japanese', 'Korean', 'Other'
   ];
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -41,15 +65,27 @@ export default function MedicalNeedsForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate API call
+    setSubmitError(null);
+
     try {
-      // In a real application, you would send this data to your backend
-      console.log('Form submitted:', formData);
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+      const { data, error } = await supabase
+        .from('client_requests')
+        .insert([{
+          ...formData,
+          preferred_start_date: formData.preferredStartDate,
+          preferred_end_date: formData.preferredEndDate,
+          preferred_destination: formData.preferredDestination,
+          treatment_needs: formData.treatmentNeeds,
+          additional_notes: formData.additionalNotes,
+        }])
+        .select();
+
+      if (error) throw error;
+      
       setIsSubmitted(true);
     } catch (error) {
       console.error('Error submitting form:', error);
+      setSubmitError('There was an error submitting your form. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -60,22 +96,12 @@ export default function MedicalNeedsForm() {
       <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg shadow-md mb-12">
         <div className="flex items-center">
           <div className="flex-shrink-0">
-            <svg className="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
+            <FaCheck className="h-5 w-5 text-green-500" />
           </div>
           <div className="ml-3">
-            <h3 className="text-lg font-medium text-green-800">Thank you for your submission!</h3>
-            <div className="mt-2 text-sm text-green-700">
-              <p>Our medical tourism specialists are reviewing your needs. We&apos;ll contact you within 24 hours with a personalized treatment plan including:</p>
-              <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>Recommended treatment options</li>
-                <li>Destination suggestions with top medical facilities</li>
-                <li>Detailed cost estimates</li>
-                <li>Travel and accommodation arrangements</li>
-                <li>Estimated treatment and recovery timeline</li>
-              </ul>
-            </div>
+            <p className="text-sm text-green-700">
+              Thank you for your inquiry! We've received your information and our team will contact you shortly.
+            </p>
           </div>
         </div>
       </div>
@@ -91,8 +117,8 @@ export default function MedicalNeedsForm() {
           </div>
           <div className="ml-4">
             <h2 className="text-2xl font-bold text-white">Tell Us Your Medical Needs</h2>
-            <p className="text-sm text-gray-200">We&apos;ll never share your personal information with third parties.</p>
-            <p className="text-gray-300">Complete this form and we&apos;ll prepare a personalized treatment plan for you</p>
+            <p className="text-sm text-gray-200">We'll never share your personal information with third parties.</p>
+            <p className="text-gray-300">Complete this form and we'll prepare a personalized treatment plan for you</p>
           </div>
         </div>
       </div>
@@ -174,9 +200,11 @@ export default function MedicalNeedsForm() {
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 appearance-none bg-white text-gray-900"
               >
                 <option value="">Select preferred language</option>
-                <option value="Spanish">Spanish</option>
-                <option value="English">English</option>
-                <option value="French">French</option>
+                {languages.map((language) => (
+                  <option key={language} value={language}>
+                    {language}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -300,6 +328,18 @@ export default function MedicalNeedsForm() {
         </div>
         
         <div className="mt-8">
+          {submitError && (
+            <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 rounded">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <FaExclamationTriangle className="h-5 w-5 text-red-500" />
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm text-red-700">{submitError}</p>
+                </div>
+              </div>
+            </div>
+          )}
           <button
             type="submit"
             disabled={isSubmitting}
@@ -314,10 +354,7 @@ export default function MedicalNeedsForm() {
                 Processing...
               </>
             ) : (
-              <>
-                <FaPaperPlane className="-ml-1 mr-2 h-5 w-5" />
-                Get My Personalized Treatment Plan
-              </>
+              'Submit Request'
             )}
           </button>
           <p className="mt-2 text-xs text-gray-500 text-center">
