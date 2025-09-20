@@ -1,0 +1,319 @@
+'use client';
+
+import { useState } from 'react';
+import { FaClinicMedical, FaTooth, FaProcedures, FaHeartbeat, FaPlane, FaLanguage, FaStar } from 'react-icons/fa';
+
+type Treatment = {
+  id: number;
+  title: string;
+  description: string;
+  icon: JSX.Element;
+  cities: string[];
+  image: string;
+};
+
+type City = {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+};
+
+export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const treatments: Treatment[] = [
+    {
+      id: 1,
+      title: 'Dental Care',
+      description: 'World-class dental treatments at a fraction of the cost',
+      icon: <FaTooth className="text-3xl text-blue-600" />,
+      cities: ['Barcelona', 'Madrid', 'Valencia', 'Málaga'],
+      image: '/dental-care.jpg',
+    },
+    {
+      id: 2,
+      title: 'Cosmetic Surgery',
+      description: 'Enhance your natural beauty with our expert surgeons',
+      icon: <FaProcedures className="text-3xl text-pink-500" />,
+      cities: ['Madrid', 'Barcelona', 'Marbella'],
+      image: '/cosmetic-surgery.jpg',
+    },
+    {
+      id: 3,
+      title: 'Cardiac Care',
+      description: 'Advanced cardiac treatments with cutting-edge technology',
+      icon: <FaHeartbeat className="text-3xl text-red-500" />,
+      cities: ['Barcelona', 'Madrid', 'Seville'],
+      image: '/cardiac-care.jpg',
+    },
+  ];
+
+  const cities: City[] = [
+    {
+      id: 1,
+      name: 'Barcelona',
+      image: '/barcelona.jpg',
+      description: 'World-renowned medical facilities with a Mediterranean lifestyle',
+    },
+    {
+      id: 2,
+      name: 'Madrid',
+      image: '/madrid.jpg',
+      description: 'Leading medical centers in the heart of Spain',
+    },
+    {
+      id: 3,
+      name: 'Málaga',
+      image: '/malaga.jpg',
+      description: 'Quality healthcare with a coastal retreat experience',
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-md">
+        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <FaClinicMedical className="text-3xl text-blue-600" />
+            <h1 className="text-2xl font-bold text-gray-800">Health & Beauty Spain</h1>
+          </div>
+          
+          {/* Mobile menu button */}
+          <button 
+            className="md:hidden text-gray-600"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            ☰
+          </button>
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-8">
+            <a href="#treatments" className="text-gray-700 hover:text-blue-600 font-medium">Treatments</a>
+            <a href="#destinations" className="text-gray-700 hover:text-blue-600 font-medium">Destinations</a>
+            <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium">About Us</a>
+            <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+          </nav>
+          
+          <button className="hidden md:block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
+            Get a Free Quote
+          </button>
+        </div>
+        
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white py-4 px-4 border-t">
+            <nav className="flex flex-col space-y-4">
+              <a href="#treatments" className="text-gray-700 hover:text-blue-600 font-medium">Treatments</a>
+              <a href="#destinations" className="text-gray-700 hover:text-blue-600 font-medium">Destinations</a>
+              <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium">About Us</a>
+              <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+              <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition w-full">
+                Get a Free Quote
+              </button>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+        <div className="absolute inset-0 bg-black opacity-40"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">World-Class Medical Care in Spain</h1>
+            <p className="text-xl mb-8">Experience top-quality healthcare, cutting-edge treatments, and a relaxing recovery in Spain's most beautiful cities.</p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="bg-white text-blue-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition">
+                Explore Treatments
+              </button>
+              <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-700 transition">
+                Contact Us
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Why Choose Medical Tourism in Spain?</h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Card 1 */}
+            <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                <FaStar className="text-yellow-400 text-2xl" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">World-Class Facilities</h3>
+              <p className="text-gray-600">State-of-the-art hospitals and clinics with internationally accredited medical professionals.</p>
+            </div>
+            
+            {/* Card 2 */}
+            <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                <FaPlane className="text-blue-600 text-2xl" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Seamless Travel</h3>
+              <p className="text-gray-600">All-inclusive packages including flights, accommodation, and transportation.</p>
+            </div>
+            
+            {/* Card 3 */}
+            <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                <FaLanguage className="text-green-600 text-2xl" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Multilingual Support</h3>
+              <p className="text-gray-600">Dedicated coordinators who speak your language throughout your medical journey.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Treatments Section */}
+      <section id="treatments" className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Our Specialized Treatments</h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            We offer a wide range of medical and cosmetic procedures performed by top specialists in Spain.
+          </p>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {treatments.map((treatment) => (
+              <div key={treatment.id} className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
+                <div className="h-48 bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center">
+                  {treatment.icon}
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{treatment.title}</h3>
+                  <p className="text-gray-600 mb-4">{treatment.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {treatment.cities.map((city, index) => (
+                      <span key={index} className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">
+                        {city}
+                      </span>
+                    ))}
+                  </div>
+                  <button className="text-blue-600 font-medium hover:underline">
+                    Learn more →
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <button className="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
+              View All Treatments
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Destinations Section */}
+      <section id="destinations" className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Popular Destinations</h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Discover Spain's most sought-after cities for medical tourism, combining world-class healthcare with unforgettable experiences.
+          </p>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {cities.map((city) => (
+              <div key={city.id} className="relative rounded-xl overflow-hidden h-96 group">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
+                <div className="relative z-20 h-full flex flex-col justify-end p-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">{city.name}</h3>
+                  <p className="text-gray-200 mb-4">{city.description}</p>
+                  <button className="self-start text-white font-medium hover:underline">
+                    Explore {city.name} →
+                  </button>
+                </div>
+                <div className="absolute inset-0 bg-gray-400">
+                  <div className="w-full h-full bg-gray-200 animate-pulse"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Begin Your Medical Journey?</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Contact us today for a free consultation and personalized treatment plan.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <button className="bg-white text-blue-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition">
+              Get a Free Quote
+            </button>
+            <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-700 transition">
+              Call Us Now
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer id="contact" className="bg-gray-900 text-gray-300 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <FaClinicMedical className="text-2xl text-blue-500" />
+                <span className="text-white font-bold text-xl">Health & Beauty Spain</span>
+              </div>
+              <p className="text-sm">Your trusted partner for medical tourism in Spain, providing world-class healthcare with a personal touch.</p>
+            </div>
+            
+            <div>
+              <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-white">Home</a></li>
+                <li><a href="#treatments" className="hover:text-white">Treatments</a></li>
+                <li><a href="#destinations" className="hover:text-white">Destinations</a></li>
+                <li><a href="#about" className="hover:text-white">About Us</a></li>
+                <li><a href="#contact" className="hover:text-white">Contact</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-white font-semibold mb-4">Contact Us</h4>
+              <address className="not-italic">
+                <p className="mb-2">123 Medical Center Dr.</p>
+                <p className="mb-2">Barcelona, 08001</p>
+                <p className="mb-2">Spain</p>
+                <p className="mb-2">+34 123 456 789</p>
+                <p>info@healthandbeautyspain.com</p>
+              </address>
+            </div>
+            
+            <div>
+              <h4 className="text-white font-semibold mb-4">Newsletter</h4>
+              <p className="text-sm mb-4">Subscribe to our newsletter for the latest updates and offers.</p>
+              <div className="flex">
+                <input 
+                  type="email" 
+                  placeholder="Your email" 
+                  className="bg-gray-800 text-white px-4 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+                <button className="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition">
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm">
+            <p>&copy; {new Date().getFullYear()} Health & Beauty Spain. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
