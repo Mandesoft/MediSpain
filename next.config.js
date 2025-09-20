@@ -1,23 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   images: {
     domains: [
       'images.unsplash.com',
       'plus.unsplash.com',
       'source.unsplash.com',
     ],
+    unoptimized: true, // Disable image optimization if not needed
   },
   reactStrictMode: true,
   swcMinify: true,
   compiler: {
-    // Enables the styled-components SWC transform
     styledComponents: true,
   },
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  // Enable static export for Vercel
+  outputFileTracing: true,
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
