@@ -90,6 +90,7 @@ export default function MedicalNeedsForm() {
           </div>
           <div className="ml-4">
             <h2 className="text-2xl font-bold text-white">Tell Us Your Medical Needs</h2>
+            <p className="text-sm text-gray-500">We'll never share your personal information with third parties.</p>
             <p className="text-gray-600">Complete this form and we'll prepare a personalized treatment plan for you</p>
           </div>
         </div>

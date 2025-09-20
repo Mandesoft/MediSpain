@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { FaClinicMedical, FaPlane, FaLanguage, FaStar } from 'react-icons/fa';
 import ScrollHeader from './components/ScrollHeader';
 import DestinationsCarousel from './components/DestinationsCarousel';
@@ -16,28 +17,6 @@ interface City {
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-
-  const cities: City[] = [
-    {
-      id: 1,
-      name: 'Barcelona',
-      image: '/barcelona.jpg',
-      description: 'World-renowned medical facilities with a Mediterranean lifestyle',
-    },
-    {
-      id: 2,
-      name: 'Madrid',
-      image: '/madrid.jpg',
-      description: 'Leading medical centers in the heart of Spain',
-    },
-    {
-      id: 3,
-      name: 'Málaga',
-      image: '/malaga.jpg',
-      description: 'Quality healthcare with a coastal retreat experience',
-    },
-  ];
 
   // Smooth scroll to section
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
@@ -127,16 +106,15 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/70"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent"></div>
-          <img 
-            src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" 
-            alt="Modern hospital in Spain" 
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              // Fallback to a solid color if image fails to load
-              const target = e.target as HTMLImageElement;
-              target.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDQwIiBoZWlnaHQ9IjkwMCI+PHJlY3Qgd2lkdGg9IjE0NDAiIGhlaWdodD0iOTAwIiBmaWxsPSIjMDI2OGE3Ii8+PHRleHQgeD0iNzIwIiB5PSI0NTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkhlYWx0aCAmIEJlYXV0eSBTcGFpbjwvdGV4dD48L3N2Zz4=';
-            }}
-          />
+          <div className="relative w-full h-full">
+            <Image 
+              src="/hospital.jpg" 
+              alt="Modern hospital in Spain" 
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
 
         {/* Hero Content */}
