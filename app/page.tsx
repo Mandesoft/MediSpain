@@ -7,13 +7,7 @@ import ScrollHeader from './components/ScrollHeader';
 import DestinationsCarousel from './components/DestinationsCarousel';
 import MedicalNeedsForm from './components/MedicalNeedsForm';
 
-// Type definitions
-interface City {
-  id: number;
-  name: string;
-  image: string;
-  description: string;
-}
+// Type definitions will be added as needed
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -108,11 +102,12 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent"></div>
           <div className="relative w-full h-full">
             <Image 
-              src="/hospital.jpg" 
+              src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" 
               alt="Modern hospital in Spain" 
               fill
               className="object-cover"
               priority
+              sizes="100vw"
             />
           </div>
         </div>
