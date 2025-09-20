@@ -66,7 +66,7 @@ export default function MedicalNeedsForm() {
           <div className="ml-3">
             <h3 className="text-lg font-medium text-green-800">Thank you for your submission!</h3>
             <div className="mt-2 text-sm text-green-700">
-              <p>Our medical tourism specialists are reviewing your needs. We'll contact you within 24 hours with a personalized treatment plan including:</p>
+              <p>Our medical tourism specialists are reviewing your needs. We&apos;ll contact you within 24 hours with a personalized treatment plan including:</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>Recommended treatment options</li>
                 <li>Destination suggestions with top medical facilities</li>
@@ -90,7 +90,7 @@ export default function MedicalNeedsForm() {
           </div>
           <div className="ml-4">
             <h2 className="text-2xl font-bold text-white">Tell Us Your Medical Needs</h2>
-            <p className="text-blue-100 mt-1">Get a personalized treatment plan with cost estimates and travel arrangements</p>
+            <p className="text-gray-600">Complete this form and we'll prepare a personalized treatment plan for you</p>
           </div>
         </div>
       </div>

@@ -1,31 +1,21 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import React from 'react';
 import { FaClinicMedical, FaPlane, FaLanguage, FaStar } from 'react-icons/fa';
 import ScrollHeader from './components/ScrollHeader';
-import TreatmentsGrid from './components/TreatmentCarousel';
 import DestinationsCarousel from './components/DestinationsCarousel';
 import MedicalNeedsForm from './components/MedicalNeedsForm';
 
-type Treatment = {
-  id: number;
-  title: string;
-  description: string;
-  icon: JSX.Element;
-  cities: string[];
-  image: string;
-};
-
-type City = {
+// Type definitions
+interface City {
   id: number;
   name: string;
   image: string;
   description: string;
-};
+}
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
 
   const cities: City[] = [
@@ -220,7 +210,7 @@ export default function Home() {
 
       {/* Treatments Section */}
       <section id="treatments" className="bg-gray-50">
-        <TreatmentsGrid />
+        <DestinationsCarousel />
       </section>
 
       {/* Destinations Section */}
