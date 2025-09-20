@@ -15,8 +15,6 @@ export const metadata: Metadata = {
   description: "Experience world-class medical treatments in Spain's most beautiful cities. Affordable, high-quality healthcare with a relaxing recovery experience.",
   keywords: ["medical tourism spain", "healthcare in spain", "medical travel", "cosmetic surgery spain", "dental tourism spain"],
   authors: [{ name: "Health & Beauty Spain" }],
-  viewport: "width=device-width, initial-scale=1.0",
-  themeColor: "#2563eb",
   openGraph: {
     title: "Health & Beauty Spain | Medical Tourism in Spain",
     description: "Experience world-class medical treatments in Spain's most beautiful cities.",

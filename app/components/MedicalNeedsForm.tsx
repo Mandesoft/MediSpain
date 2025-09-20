@@ -9,13 +9,31 @@ export default function MedicalNeedsForm() {
   useEffect(() => {
     const testConnection = async () => {
       try {
-        const { data, error } = await supabase
-          .from('test_connection')
-          .select('*')
-          .limit(1);
+        // Test connection by inserting a test row (which will be rolled back)
+        const { error } = await supabase
+          .from('client_requests')
+          .insert([{
+            name: 'test',
+            email: 'test@example.com',
+            phone: '+1234567890',
+            country: 'Test',
+            language: 'English',
+            treatment_needs: 'Connection test',
+            preferred_destination: 'barcelona',
+            preferred_start_date: new Date().toISOString().split('T')[0],
+            preferred_end_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            budget: '1000-3000',
+            additional_notes: 'Test connection'
+          }])
+          .select()
+          .single();
           
         if (error) {
-          console.error('Supabase connection test failed:', error.message);
+          if (error.code === '42P01') {
+            console.error('Database table not found. Please create the client_requests table in Supabase.');
+          } else {
+            console.error('Supabase connection test failed:', error.message);
+          }
         } else {
           console.log('✅ Supabase connection successful!');
         }
@@ -32,12 +50,12 @@ export default function MedicalNeedsForm() {
     phone: '',
     country: '',
     language: '',
-    treatmentNeeds: '',
-    preferredDestination: '',
-    preferredStartDate: '',
-    preferredEndDate: '',
+    treatment_needs: '',
+    preferred_destination: '',
+    preferred_start_date: '',
+    preferred_end_date: '',
     budget: '',
-    additionalNotes: ''
+    additional_notes: ''
   });
 
   const countries = [
@@ -68,24 +86,36 @@ export default function MedicalNeedsForm() {
     setSubmitError(null);
 
     try {
+      // The form data already uses snake_case field names
+      const submissionData = { ...formData };
+      
+      console.log('Submitting data:', submissionData); // Debug log
+
       const { data, error } = await supabase
         .from('client_requests')
-        .insert([{
-          ...formData,
-          preferred_start_date: formData.preferredStartDate,
-          preferred_end_date: formData.preferredEndDate,
-          preferred_destination: formData.preferredDestination,
-          treatment_needs: formData.treatmentNeeds,
-          additional_notes: formData.additionalNotes,
-        }])
-        .select();
+        .insert([submissionData])
+        .select()
+        .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        if (error.code === '23505') {
+          throw new Error('This email has already been used. Please use a different email or contact support.');
+        } else if (error.code === '23514') {
+          throw new Error('Invalid data provided. Please check your inputs and try again.');
+        } else {
+          throw error;
+        }
+      }
       
       setIsSubmitted(true);
     } catch (error) {
       console.error('Error submitting form:', error);
-      setSubmitError('There was an error submitting your form. Please try again.');
+      setSubmitError(
+        error instanceof Error 
+          ? error.message 
+          : 'There was an error submitting your form. Please try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -210,15 +240,15 @@ export default function MedicalNeedsForm() {
           </div>
           
           <div className="space-y-2">
-            <label htmlFor="preferredDestination" className="block text-sm font-semibold text-gray-900">Preferred Destination</label>
+            <label htmlFor="preferred_destination" className="block text-sm font-semibold text-gray-900">Preferred Destination</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <FaMapMarkerAlt className="h-5 w-5 text-blue-600" />
               </div>
               <select
-                id="preferredDestination"
-                name="preferredDestination"
-                value={formData.preferredDestination}
+                id="preferred_destination"
+                name="preferred_destination"
+                value={formData.preferred_destination}
                 onChange={handleChange}
                 className="w-full pl-10 px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 appearance-none bg-white text-gray-900"
               >
@@ -238,9 +268,9 @@ export default function MedicalNeedsForm() {
               <div className="flex-1 w-full">
                 <input
                   type="date"
-                  id="preferredStartDate"
-                  name="preferredStartDate"
-                  value={formData.preferredStartDate}
+                  id="preferred_start_date"
+                  name="preferred_start_date"
+                  value={formData.preferred_start_date}
                   onChange={handleChange}
                   className="w-full px-4 py-2.5 border border-r-0 border-gray-300 rounded-l-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white"
                   min={new Date().toISOString().split('T')[0]}
@@ -257,13 +287,13 @@ export default function MedicalNeedsForm() {
               <div className="flex-1 w-full mt-6 md:mt-0">
                 <input
                   type="date"
-                  id="preferredEndDate"
-                  name="preferredEndDate"
-                  value={formData.preferredEndDate}
+                  id="preferred_end_date"
+                  name="preferred_end_date"
+                  value={formData.preferred_end_date}
                   onChange={handleChange}
                   className="w-full px-4 py-2.5 border border-l-0 border-gray-300 rounded-r-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white disabled:bg-gray-50"
-                  min={formData.preferredStartDate || new Date().toISOString().split('T')[0]}
-                  disabled={!formData.preferredStartDate}
+                  min={formData.preferred_start_date || new Date().toISOString().split('T')[0]}
+                  disabled={!formData.preferred_start_date}
                   required
                 />
               </div>
@@ -296,15 +326,15 @@ export default function MedicalNeedsForm() {
         </div>
         
         <div className="mt-6 space-y-2">
-          <label htmlFor="treatmentNeeds" className="block text-sm font-semibold text-gray-900">
+          <label htmlFor="treatment_needs" className="block text-sm font-semibold text-gray-900">
             Describe Your Medical Needs *
             <span className="block text-xs text-gray-600 mt-1">(e.g., dental implants, knee replacement, cosmetic surgery)</span>
           </label>
           <textarea
-            id="treatmentNeeds"
-            name="treatmentNeeds"
+            id="treatment_needs"
+            name="treatment_needs"
             rows={4}
-            value={formData.treatmentNeeds}
+            value={formData.treatment_needs}
             onChange={handleChange}
             className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white"
             placeholder="Please describe the treatment you're interested in, any specific requirements, and your medical history if relevant..."
@@ -313,14 +343,14 @@ export default function MedicalNeedsForm() {
         </div>
         
         <div className="mt-6 space-y-2">
-          <label htmlFor="additionalNotes" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="additional_notes" className="block text-sm font-medium text-gray-700">
             Additional Notes or Questions
           </label>
           <textarea
-            id="additionalNotes"
-            name="additionalNotes"
+            id="additional_notes"
+            name="additional_notes"
             rows={3}
-            value={formData.additionalNotes}
+            value={formData.additional_notes}
             onChange={handleChange}
             className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white"
             placeholder="Any special requirements, questions, or additional information you'd like to share..."
