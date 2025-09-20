@@ -124,40 +124,36 @@ export default function DestinationsCarousel() {
             {visibleDestinations.map((destination) => (
               <div 
                 key={destination.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1 flex flex-col h-[600px]"
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1 flex flex-col h-[800px]"
               >
-                <div className="relative h-48 overflow-hidden">
-                  <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
-                    <div className="relative w-full h-full">
-                      <Image 
-                        src={destination.image} 
-                        alt={destination.name}
-                        fill
-                        className="object-cover"
-                        onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                          const target = e.currentTarget;
-                          target.style.display = 'none';
-                          const parent = target.parentElement;
-                          if (parent) {
-                            const fallback = document.createElement('div');
-                            fallback.className = 'w-full h-full flex items-center justify-center bg-blue-600 text-white';
-                            fallback.textContent = destination.name;
-                            parent.appendChild(fallback);
-                          }
-                        }}
-                      />
+                <div className="relative h-[32rem] overflow-hidden">
+                  <div className="relative w-full h-full">
+                    <Image 
+                      src={destination.image} 
+                      alt={destination.name}
+                      fill
+                      className="object-cover"
+                      priority
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                        const target = e.currentTarget;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          const fallback = document.createElement('div');
+                          fallback.className = 'w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 text-white';
+                          fallback.textContent = destination.name;
+                          parent.appendChild(fallback);
+                        }
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                      <h3 className="text-2xl font-bold text-white flex items-center">
+                        {destination.icon}
+                        <span className="ml-2">{destination.name}</span>
+                      </h3>
                     </div>
-                    <div className="text-gray-500 text-center p-4">
-                      <p>Loading {destination.name}...</p>
-                      <p className="text-sm">(Image placeholder)</p>
-                    </div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-4">
-                    <h3 className="text-2xl font-bold text-white flex items-center">
-                      {destination.icon}
-                      <span className="ml-2">{destination.name}</span>
-                    </h3>
                   </div>
                 </div>
                 

@@ -12,7 +12,8 @@ export default function MedicalNeedsForm() {
     language: '',
     treatmentNeeds: '',
     preferredDestination: '',
-    preferredDate: '',
+    preferredStartDate: '',
+    preferredEndDate: '',
     budget: '',
     additionalNotes: ''
   });
@@ -90,8 +91,8 @@ export default function MedicalNeedsForm() {
           </div>
           <div className="ml-4">
             <h2 className="text-2xl font-bold text-white">Tell Us Your Medical Needs</h2>
-            <p className="text-sm text-gray-500">We&apos;ll never share your personal information with third parties.</p>
-            <p className="text-gray-600">Complete this form and we&apos;ll prepare a personalized treatment plan for you</p>
+            <p className="text-sm text-gray-200">We&apos;ll never share your personal information with third parties.</p>
+            <p className="text-gray-300">Complete this form and we&apos;ll prepare a personalized treatment plan for you</p>
           </div>
         </div>
       </div>
@@ -107,7 +108,7 @@ export default function MedicalNeedsForm() {
               required
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white"
               placeholder="John Smith"
             />
           </div>
@@ -121,7 +122,7 @@ export default function MedicalNeedsForm() {
               required
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white"
               placeholder="john@example.com"
             />
           </div>
@@ -135,13 +136,13 @@ export default function MedicalNeedsForm() {
               required
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white"
               placeholder="+34 123 456 789"
             />
           </div>
           
           <div className="space-y-2">
-            <label htmlFor="country" className="block text-sm font-medium text-gray-700">Country of Origin *</label>
+            <label htmlFor="country" className="block text-sm font-semibold text-gray-900">Country of Origin *</label>
             <div className="relative">
               <select
                 id="country"
@@ -149,7 +150,7 @@ export default function MedicalNeedsForm() {
                 required
                 value={formData.country}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 appearance-none bg-white text-gray-900"
               >
                 <option value="">Select your country</option>
                 {countries.map((country) => (
@@ -170,74 +171,92 @@ export default function MedicalNeedsForm() {
                 required
                 value={formData.language}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 appearance-none bg-white text-gray-900"
               >
                 <option value="">Select preferred language</option>
-                {languages.map((language) => (
-                  <option key={language} value={language}>
-                    {language}
-                  </option>
-                ))}
+                <option value="Spanish">Spanish</option>
+                <option value="English">English</option>
+                <option value="French">French</option>
               </select>
             </div>
           </div>
           
           <div className="space-y-2">
-            <label htmlFor="preferredDestination" className="block text-sm font-medium text-gray-700">Preferred Destination</label>
+            <label htmlFor="preferredDestination" className="block text-sm font-semibold text-gray-900">Preferred Destination</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FaMapMarkerAlt className="h-5 w-5 text-gray-400" />
+                <FaMapMarkerAlt className="h-5 w-5 text-blue-600" />
               </div>
               <select
                 id="preferredDestination"
                 name="preferredDestination"
                 value={formData.preferredDestination}
                 onChange={handleChange}
-                className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                className="w-full pl-10 px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 appearance-none bg-white text-gray-900"
               >
                 <option value="">Any destination in Spain</option>
                 <option value="barcelona">Barcelona</option>
                 <option value="madrid">Madrid</option>
                 <option value="malaga">Málaga</option>
                 <option value="murcia">Murcia (Águilas)</option>
-                <option value="valencia">Valencia</option>
-                <option value="seville">Seville</option>
               </select>
             </div>
           </div>
           
           <div className="space-y-2">
-            <label htmlFor="preferredDate" className="block text-sm font-medium text-gray-700">Preferred Travel Date</label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FaCalendarAlt className="h-5 w-5 text-gray-400" />
+            <label className="block text-sm font-semibold text-gray-900 mb-2">Preferred Travel Dates *</label>
+            <div className="relative flex flex-col md:flex-row items-start md:items-center gap-3">
+              {/* Start Date */}
+              <div className="flex-1 w-full">
+                <input
+                  type="date"
+                  id="preferredStartDate"
+                  name="preferredStartDate"
+                  value={formData.preferredStartDate}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2.5 border border-r-0 border-gray-300 rounded-l-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white"
+                  min={new Date().toISOString().split('T')[0]}
+                  required
+                />
               </div>
-              <input
-                type="date"
-                id="preferredDate"
-                name="preferredDate"
-                value={formData.preferredDate}
-                onChange={handleChange}
-                className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                min={new Date().toISOString().split('T')[0]}
-              />
+              
+              {/* Divider */}
+              <div className="hidden md:flex items-center justify-center h-10 w-4 text-gray-400">
+                <span className="text-sm">-</span>
+              </div>
+              
+              {/* End Date */}
+              <div className="flex-1 w-full mt-6 md:mt-0">
+                <input
+                  type="date"
+                  id="preferredEndDate"
+                  name="preferredEndDate"
+                  value={formData.preferredEndDate}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2.5 border border-l-0 border-gray-300 rounded-r-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white disabled:bg-gray-50"
+                  min={formData.preferredStartDate || new Date().toISOString().split('T')[0]}
+                  disabled={!formData.preferredStartDate}
+                  required
+                />
+              </div>
             </div>
+            <p className="mt-1 text-xs text-gray-500">Select your desired travel period</p>
           </div>
           
           <div className="space-y-2">
-            <label htmlFor="budget" className="block text-sm font-medium text-gray-700">Estimated Budget</label>
+            <label htmlFor="budget" className="block text-sm font-semibold text-gray-900">Estimated Budget</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FaEuroSign className="h-5 w-5 text-gray-400" />
+                <FaEuroSign className="h-5 w-5 text-gray-700" />
               </div>
               <select
                 id="budget"
                 name="budget"
                 value={formData.budget}
                 onChange={handleChange}
-                className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                className="w-full pl-10 px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 appearance-none bg-white text-gray-900"
               >
-                <option value="">Select budget range</option>
+                <option value="" className="text-gray-600">Select budget range</option>
                 <option value="1000-3000">€1,000 - €3,000</option>
                 <option value="3000-7000">€3,000 - €7,000</option>
                 <option value="7000-15000">€7,000 - €15,000</option>
@@ -249,19 +268,19 @@ export default function MedicalNeedsForm() {
         </div>
         
         <div className="mt-6 space-y-2">
-          <label htmlFor="treatmentNeeds" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="treatmentNeeds" className="block text-sm font-semibold text-gray-900">
             Describe Your Medical Needs *
-            <span className="text-xs text-gray-500 ml-1">(e.g., dental implants, knee replacement, cosmetic surgery)</span>
+            <span className="block text-xs text-gray-600 mt-1">(e.g., dental implants, knee replacement, cosmetic surgery)</span>
           </label>
           <textarea
             id="treatmentNeeds"
             name="treatmentNeeds"
-            required
             rows={4}
             value={formData.treatmentNeeds}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white"
             placeholder="Please describe the treatment you're interested in, any specific requirements, and your medical history if relevant..."
+            required
           />
         </div>
         
@@ -275,7 +294,7 @@ export default function MedicalNeedsForm() {
             rows={3}
             value={formData.additionalNotes}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-blue-500 text-gray-900 bg-white"
             placeholder="Any special requirements, questions, or additional information you'd like to share..."
           />
         </div>
