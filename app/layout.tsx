@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ResponsiveHeader from "./components/ResponsiveHeader";
 
 // Load Inter font with specific weights
 const inter = Inter({
@@ -36,10 +37,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className="scroll-smooth">
       <head />
-      <body className={`${inter.className} antialiased`}>
-        {children}
+      <body className={`${inter.className} bg-gray-50`}>
+        <div className="min-h-screen flex flex-col">
+          <ResponsiveHeader />
+          <main className="flex-grow pt-20 md:pt-24">
+            {children}
+          </main>
+          {/* Footer will go here */}
+        </div>
       </body>
     </html>
   );
