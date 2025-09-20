@@ -9,23 +9,16 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
-  reactStrictMode: true,
-  swcMinify: true,
+  reactStrictMode: false,
   compiler: {
     styledComponents: true,
   },
   eslint: {
-    // Disable ESLint during builds since we're handling it separately
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // Allow production builds even with TypeScript errors
     ignoreBuildErrors: true,
-  },
-  // Enable static export for Vercel
-  outputFileTracing: true,
-  // Disable React's StrictMode for now to prevent double rendering in development
-  reactStrictMode: false,
+  }
 }
 
 module.exports = nextConfig

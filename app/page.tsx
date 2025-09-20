@@ -182,8 +182,87 @@ export default function Home() {
       </section>
 
       {/* Treatments Section */}
-      <section id="treatments" className="bg-gray-50">
-        <DestinationsCarousel />
+      <section id="treatments" className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Specialized Treatments</h2>
+            <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Treatment 1 */}
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+              <div className="bg-blue-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                <FaClinicMedical className="text-blue-600 text-2xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Dental Implants</h3>
+              <p className="text-gray-600 mb-5">Premium dental implants using Swiss/German materials, with a 10-year warranty. Save up to 60% compared to US/UK prices.</p>
+              <button className="text-blue-600 font-semibold hover:text-blue-800 flex items-center group">
+                Learn More <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+            </div>
+            
+            {/* Treatment 2 */}
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+              <div className="bg-pink-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                <FaClinicMedical className="text-pink-500 text-2xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Cosmetic Surgery</h3>
+              <p className="text-gray-600 mb-5">From facelifts to body contouring, our board-certified surgeons provide natural-looking results in JCI-accredited facilities.</p>
+              <button className="text-blue-600 font-semibold hover:text-blue-800 flex items-center group">
+                Learn More <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+            </div>
+            
+            {/* Treatment 3 */}
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+              <div className="bg-purple-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                <FaClinicMedical className="text-purple-600 text-2xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Fertility Treatments</h3>
+              <p className="text-gray-600 mb-5">High success rates with IVF, IUI, and egg donation programs. Comprehensive care with personalized treatment plans.</p>
+              <button className="text-blue-600 font-semibold hover:text-blue-800 flex items-center group">
+                Learn More <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+            </div>
+
+            {/* Treatment 4 */}
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+              <div className="bg-green-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                <FaClinicMedical className="text-green-600 text-2xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Bariatric Surgery</h3>
+              <p className="text-gray-600 mb-5">Lose weight and improve your health with gastric sleeve, bypass, or balloon procedures. Comprehensive pre and post-op care.</p>
+              <button className="text-blue-600 font-semibold hover:text-blue-800 flex items-center group">
+                Learn More <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+            </div>
+
+            {/* Treatment 5 */}
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+              <div className="bg-yellow-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                <FaClinicMedical className="text-yellow-500 text-2xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Orthopedic Surgery</h3>
+              <p className="text-gray-600 mb-5">Hip and knee replacements, sports medicine, and spine surgery with rapid recovery protocols and rehabilitation.</p>
+              <button className="text-blue-600 font-semibold hover:text-blue-800 flex items-center group">
+                Learn More <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+            </div>
+
+            {/* Treatment 6 */}
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+              <div className="bg-red-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                <FaClinicMedical className="text-red-500 text-2xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Cardiac Care</h3>
+              <p className="text-gray-600 mb-5">World-class cardiac surgery, angioplasty, and preventive cardiology with cutting-edge technology and experienced specialists.</p>
+              <button className="text-blue-600 font-semibold hover:text-blue-800 flex items-center group">
+                Learn More <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Destinations Section */}
